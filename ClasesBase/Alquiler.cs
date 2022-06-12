@@ -7,5 +7,6 @@ namespace ClasesBase
 {
     class Alquiler
     {
+
     }
 }
