@@ -6,7 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 
 namespace ClasesBase
-{
+{//test
     public class TrabajarBD
     {
         public static void insert_Antecedente(Antecedente unAntecedente)
