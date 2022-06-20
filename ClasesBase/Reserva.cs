@@ -5,7 +5,10 @@ using System.Text;
 
 namespace ClasesBase
 {
-    class Reserva
+    public class Reserva
     {
+        public DateTime FechaInicio, FechaEntrega;
+        public double PrecioReserva;
+        public Boolean MaquinariaEntregada;
     }
 }

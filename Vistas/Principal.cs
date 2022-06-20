@@ -19,11 +19,6 @@ namespace Vistas
             InitializeComponent();
         }
 
-        private void btnRegistrarAlquiler_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void load_cmbClientes()
         {
             DataTable dt = TrabajarBD.list_clientes();
@@ -49,18 +44,50 @@ namespace Vistas
             lblAntecedentes.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
         }
 
-        private void Principal_Load(object sender, EventArgs e)
+
+        private void load_cmbClientesReserva()
         {
-            load_cmbClientes();
+            DataTable dt = TrabajarBD.list_clientes();
+            cmbClienteReserva.DataSource = dt;
+            dt.Columns.Add("FullName",
+            typeof(string), "Nombre + ' ' + Apellido + ' '+ DNI");
+            cmbClienteReserva.DisplayMember = "FullName";
+            cmbClienteReserva.ValueMember = "IdCliente";
+            int i = (int)cmbClienteReserva.SelectedValue;
+            int antecedentes = TrabajarBD.count_of_Antecedentes(i);
+            if (antecedentes == 0)
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Green;
+            }
+            else if (antecedentes == 1)
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Orange;
+            }
+            else
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Red;
+            }
+            lblAntecedentesReservaResultado.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
+        }
+
+        private void load_cmbMaquinariaReserva()
+        {
             DataTable dtMaquinarias = TrabajarBD.list_maquinarias();
-            cmbMaquinarias.DataSource = dtMaquinarias;
+            cmbMaquinariasReserva.DataSource = dtMaquinarias;
             dtMaquinarias.Columns.Add("MarcaModelo",
             typeof(string), "Marca + ' ' + Modelo");
 
-            cmbMaquinarias.DisplayMember = "MarcaModelo";
-            cmbMaquinarias.ValueMember = "IdMaquinaria";
-            int j = (int)cmbMaquinarias.SelectedValue;
-            Image imagen;
+            cmbMaquinariasReserva.DisplayMember = "MarcaModelo";
+            cmbMaquinariasReserva.ValueMember = "IdMaquinaria";
+            int j = (int)cmbMaquinariasReserva.SelectedValue;
+
+            //int j = (int)cmbMaquinarias.SelectedValue;
+            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+            decimal precio = (from DataRow dr in dtPrecio.Rows
+                      where (int)dr["IdMaquinaria"] == j
+                      select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+            lblPrecioReservaResultado.Text = precio + "$ por/día.";
+
             foreach (DataRow row in dtMaquinarias.Rows) 
             {
                 if (row["IdMaquinaria"].ToString() == j.ToString()) 
@@ -72,10 +99,55 @@ namespace Vistas
 
         }
 
+
+        private void load_cmbMaquinaria()
+        {
+            DataTable dtMaquinarias = TrabajarBD.list_maquinarias();
+            cmbMaquinarias.DataSource = dtMaquinarias;
+            dtMaquinarias.Columns.Add("MarcaModelo",
+            typeof(string), "Marca + ' ' + Modelo");
+
+            cmbMaquinarias.DisplayMember = "MarcaModelo";
+            cmbMaquinarias.ValueMember = "IdMaquinaria";
+            int j = (int)cmbMaquinarias.SelectedValue;
+
+            //int j = (int)cmbMaquinarias.SelectedValue;
+            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+            decimal precio = (from DataRow dr in dtPrecio.Rows
+                      where (int)dr["IdMaquinaria"] == j
+                      select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+            lblPrecioAlquilerResultado.Text = precio + "$ por/día.";
+            
+            }
+
+        private void Principal_Load(object sender, EventArgs e)
+        {
+            dtpFinAlquiler.MinDate = DateTime.Today.AddDays(1);
+            dtpInicioreserva.MinDate = DateTime.Today.AddDays(1);
+            dtpFinReserva.MinDate = DateTime.Today.AddDays(2);
+            load_cmbClientes();
+            load_cmbClientesReserva();
+            load_cmbMaquinariaReserva();
+            load_cmbMaquinaria(); 
+            calcularPrecioAlquiler();
+            calcularPrecioReserva();
+            
+
+            /*foreach (DataRow row in dtMaquinarias.Rows) 
+            {
+                if (row["IdMaquinaria"].ToString() == j.ToString()) 
+                {
+                    //imagen=(Image)row["Imagen"];
+                    //pbMaquinaria.Image = imagen;
+                }
+            }*/
+
+        }
+
         private void btnMasInformacion_Click(object sender, EventArgs e)
         {
             int indice= (int)cmbClientes.SelectedValue;
-            AntecedentesForm antForm = new AntecedentesForm(indice);
+            ListarAntecedentesForm antForm = new ListarAntecedentesForm(indice);
             antForm.Show();
         }
 
@@ -109,24 +181,255 @@ namespace Vistas
         {
             Console.WriteLine("Cargando Clientes");
             load_cmbClientes();
+            load_cmbClientesReserva();
         }
 
-       /* private void button3_Click(object sender, EventArgs e)
+        private void btnRegistrarAlquiler_Click(object sender, EventArgs e)
         {
-            fileOpen = new OpenFileDialog();
-            fileOpen.Title = "Open Image file";
-            fileOpen.Filter = "JPG Files (*.jpg)| *.jpg";
-
-            if (fileOpen.ShowDialog() == DialogResult.OK)
+            if (MessageBox.Show("¿Quieres registrar este Alquiler?", "Mensaje de Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                pbMaquinaria.Image = Image.FromStream(fileOpen.FileName);
+                int clienteID = (int)cmbClientes.SelectedValue;
+                int maquinariaID = (int)cmbMaquinarias.SelectedValue;
+                DateTime fechaInicio = DateTime.Now;
+                DateTime fechaFin = dtpFinAlquiler.Value;
+                int j = (int)cmbMaquinarias.SelectedValue;
+                DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+                decimal precio = (from DataRow dr in dtPrecio.Rows
+                                  where (int)dr["IdMaquinaria"] == j
+                                  select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+                int dias = (dtpFinAlquiler.Value - DateTime.Today).Days;
+                precio = precio * dias;
 
-                using (FileStream fs = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                   using (Image original = Image.FromStream(fs))
-                   {
+                Alquiler unAlquiler = new Alquiler();
+                unAlquiler.FechaInicio = fechaInicio;
+                unAlquiler.FechaEntrega = fechaFin;
+                unAlquiler.idCliente = clienteID;
+                unAlquiler.idMaquinaria = maquinariaID;
+                unAlquiler.PrecioAlquiler = precio;
+
+                TrabajarBD.insert_Alquiler(unAlquiler);
+
+                dtpFinAlquiler.Value = DateTime.Today.AddDays(1);
+                load_cmbClientes();
+                load_cmbMaquinaria();
+                MessageBox.Show("Alquiler registrado exitosamente", "Operacion Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            fileOpen.Dispose();
-        }*/
+        }
+
+        private void cmbMaquinarias_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int j = (int)cmbMaquinarias.SelectedValue;
+            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+            decimal precio = (from DataRow dr in dtPrecio.Rows
+                      where (int)dr["IdMaquinaria"] == j
+                      select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+            lblPrecioAlquilerResultado.Text = precio + "$ por/día.";
+            calcularPrecioAlquiler();
+        }
+
+        private void cmbClienteReserva_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int i = (int)cmbClienteReserva.SelectedValue;
+            int antecedentes = TrabajarBD.count_of_Antecedentes(i);
+            if (antecedentes == 0)
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Green;
+            }
+            else if (antecedentes == 1)
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Orange;
+            }
+            else
+            {
+                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Red;
+            }
+            lblAntecedentesReservaResultado.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
+        }
+
+        private void cmbMaquinariasReserva_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            int j = (int)cmbMaquinariasReserva.SelectedValue;
+            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+            decimal precio = (from DataRow dr in dtPrecio.Rows
+                              where (int)dr["IdMaquinaria"] == j
+                              select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+            lblPrecioReservaResultado.Text = precio + "$ por/día.";
+            calcularPrecioReserva();
+        }
+
+        private void añadirMaquinariaToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            MaquinariaForm maquinariaForm = new MaquinariaForm();
+            maquinariaForm.Show();
+        }
+
+        private void modificarMaquinariaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModificarMaquinariaForm modificarMaquinarias = new ModificarMaquinariaForm();
+            modificarMaquinarias.Show();
+        }
+
+        private void generarNuevoRolToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RolesForm rolesForm = new RolesForm();
+            rolesForm.Show();
+        }
+
+        private void registrarEmpleadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EmpleadoForm empleadoForm = new EmpleadoForm();
+            empleadoForm.Show();
+        }
+
+        private void toolStripMenuItem4_Click(object sender, EventArgs e)
+        {
+            /*ModificarEmpleadoForm empleadoModificar = new ModificarEmpleadoForm();
+            empleadoModificar.Show();*/
+        }
+
+        private void registrarContactoDeEmergenciaToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            FormContactos formContactos = new FormContactos();
+            formContactos.Show();
+        }
+
+        private void toolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            FormModificarContactos modifCont = new FormModificarContactos();
+            modifCont.Show();
+        }
+
+        private void agregarAntecedenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AntecedentesForm antForm = new AntecedentesForm();
+            antForm.Show();
+        }
+
+        private void eliminarAntecedenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            GestionarAntecedente gestAnt = new GestionarAntecedente();
+            gestAnt.Show();
+        }
+
+        private void registrarClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClienteForm cliForm = new ClienteForm();
+            cliForm.Show();
+        }
+
+        private void modificarClienteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ClienteModificar cliMod = new ClienteModificar();
+            cliMod.Show();
+        }
+
+        private void cancelarReservaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ModificarReservas modRes = new ModificarReservas();
+            modRes.Show();
+        }
+
+        private void generarReciboToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReciboForm recForm = new ReciboForm();
+            recForm.Show();
+        }
+
+        private void listarAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListarAlquileres la = new ListarAlquileres();
+            la.Show();
+        }
+
+        private void verInformeDeSeguimientoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LineaMaquinariaNoDevueltaForm linea = new LineaMaquinariaNoDevueltaForm();
+            linea.Show();
+        }
+
+        private void generarInformeMaquinariaNoDevueltaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListarMaquinariasNoDevueltas maq = new ListarMaquinariasNoDevueltas();
+            maq.Show();
+        }
+
+        private void verInformeDeAlquilerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ListarInformeAlquileres al = new ListarInformeAlquileres();
+            al.Show();
+        }
+
+        private void generarInformeDeAlquileresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnMasInformacionReserva_Click(object sender, EventArgs e)
+        {
+            int indice = (int)cmbClienteReserva.SelectedValue;
+            ListarAntecedentesForm antForm = new ListarAntecedentesForm(indice);
+            antForm.Show();
+        }
+
+        private void btnRegistrarClienteReserva_Click(object sender, EventArgs e)
+        {
+            ClienteForm clienteForm = new ClienteForm();
+            clienteForm.Show();
+            clienteForm.btnRegistrarCliente.Click += button_clicked;
+        }
+
+        private void dtpInicioreserva_ValueChanged(object sender, EventArgs e)
+        {
+            dtpFinReserva.MinDate = dtpInicioreserva.Value.AddDays(1);
+            int dias= (dtpFinReserva.Value - dtpInicioreserva.Value).Days;
+            calcularPrecioReserva();
+        }
+
+        private void dtpFinReserva_ValueChanged(object sender, EventArgs e)
+        {
+            calcularPrecioReserva();
+        }
+
+        private void calcularPrecioReserva()
+        {
+           // load_cmbMaquinariaReserva();
+            if (cmbMaquinarias.SelectedValue != null)
+            {
+                int j = (int)cmbMaquinariasReserva.SelectedValue;
+                DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+                decimal precio = (from DataRow dr in dtPrecio.Rows
+                                  where (int)dr["IdMaquinaria"] == j
+                                  select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+                int dias = (dtpFinReserva.Value - dtpInicioreserva.Value).Days;
+                precio = precio * dias;
+                lblPrecioFinalReserva.Text = precio.ToString() + " $";
+            }
+        }
+
+        private void calcularPrecioAlquiler()
+        {
+            //load_cmbMaquinaria();
+            if (cmbMaquinarias.SelectedValue != null)
+            {
+                int j = (int)cmbMaquinarias.SelectedValue;
+                DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+                decimal precio = (from DataRow dr in dtPrecio.Rows
+                                  where (int)dr["IdMaquinaria"] == j
+                                  select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+                int dias = (dtpFinAlquiler.Value - DateTime.Today).Days;
+                precio = precio * dias;
+                lblPrecioFinalAlquiler.Text = precio.ToString() + " $";
+            }
+        }
+
+        private void dtpFinAlquiler_ValueChanged(object sender, EventArgs e)
+        {
+            calcularPrecioAlquiler();
+        }
+
+
+
+
+
+
     }
 }

@@ -52,11 +52,101 @@
     <Compile Include="AntecedentesForm.Designer.cs">
       <DependentUpon>AntecedentesForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClienteModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ClienteModificar.Designer.cs">
+      <DependentUpon>ClienteModificar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ContactosForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ContactosForm.Designer.cs">
+      <DependentUpon>ContactosForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormContactos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContactos.Designer.cs">
+      <DependentUpon>FormContactos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormModificarContactos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormModificarContactos.Designer.cs">
+      <DependentUpon>FormModificarContactos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListarAlquileres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarAlquileres.Designer.cs">
+      <DependentUpon>ListarAlquileres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarMaquinariaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarMaquinariaForm.Designer.cs">
+      <DependentUpon>ModificarMaquinariaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LineaMaquinariaNoDevueltaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LineaMaquinariaNoDevueltaForm.Designer.cs">
+      <DependentUpon>LineaMaquinariaNoDevueltaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReciboForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReciboForm.Designer.cs">
+      <DependentUpon>ReciboForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GestionarAntecedente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GestionarAntecedente.Designer.cs">
+      <DependentUpon>GestionarAntecedente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListarAntecedentesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarAntecedentesForm.Designer.cs">
+      <DependentUpon>ListarAntecedentesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ClienteForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ClienteForm.Designer.cs">
       <DependentUpon>ClienteForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="EmpleadoForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EmpleadoForm.Designer.cs">
+      <DependentUpon>EmpleadoForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListarMaquinariasNoDevueltas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarMaquinariasNoDevueltas.Designer.cs">
+      <DependentUpon>ListarMaquinariasNoDevueltas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListarInformeAlquileres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ListarInformeAlquileres.Designer.cs">
+      <DependentUpon>ListarInformeAlquileres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaquinariaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaquinariaForm.Designer.cs">
+      <DependentUpon>MaquinariaForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ModificarReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ModificarReservas.Designer.cs">
+      <DependentUpon>ModificarReservas.cs</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
@@ -66,11 +156,62 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RolesForm.Designer.cs">
+      <DependentUpon>RolesForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="AntecedentesForm.resx">
       <DependentUpon>AntecedentesForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="ClienteModificar.resx">
+      <DependentUpon>ClienteModificar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ContactosForm.resx">
+      <DependentUpon>ContactosForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContactos.resx">
+      <DependentUpon>FormContactos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormModificarContactos.resx">
+      <DependentUpon>FormModificarContactos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarAlquileres.resx">
+      <DependentUpon>ListarAlquileres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarMaquinariaForm.resx">
+      <DependentUpon>ModificarMaquinariaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LineaMaquinariaNoDevueltaForm.resx">
+      <DependentUpon>LineaMaquinariaNoDevueltaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReciboForm.resx">
+      <DependentUpon>ReciboForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GestionarAntecedente.resx">
+      <DependentUpon>GestionarAntecedente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarAntecedentesForm.resx">
+      <DependentUpon>ListarAntecedentesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ClienteForm.resx">
       <DependentUpon>ClienteForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EmpleadoForm.resx">
+      <DependentUpon>EmpleadoForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarMaquinariasNoDevueltas.resx">
+      <DependentUpon>ListarMaquinariasNoDevueltas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListarInformeAlquileres.resx">
+      <DependentUpon>ListarInformeAlquileres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaquinariaForm.resx">
+      <DependentUpon>MaquinariaForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ModificarReservas.resx">
+      <DependentUpon>ModificarReservas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Principal.resx">
       <DependentUpon>Principal.cs</DependentUpon>
@@ -83,7 +224,11 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="RolesForm.resx">
+      <DependentUpon>RolesForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -102,6 +247,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\images.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

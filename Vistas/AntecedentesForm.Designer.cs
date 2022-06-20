@@ -28,76 +28,89 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvAntecedentes = new System.Windows.Forms.DataGridView();
-            this.lblAntecedentes = new System.Windows.Forms.Label();
-            this.lblNombre = new System.Windows.Forms.Label();
-            this.lblApellido = new System.Windows.Forms.Label();
-            this.lblDNI = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAntecedentes)).BeginInit();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtDomicilio = new System.Windows.Forms.TextBox();
+            this.txtTelefono = new System.Windows.Forms.TextBox();
+            this.lblDomicilio = new System.Windows.Forms.Label();
+            this.lblTelefono = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // dgvAntecedentes
+            // comboBox1
             // 
-            this.dgvAntecedentes.AllowUserToAddRows = false;
-            this.dgvAntecedentes.AllowUserToDeleteRows = false;
-            this.dgvAntecedentes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvAntecedentes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvAntecedentes.Location = new System.Drawing.Point(12, 76);
-            this.dgvAntecedentes.Name = "dgvAntecedentes";
-            this.dgvAntecedentes.ReadOnly = true;
-            this.dgvAntecedentes.Size = new System.Drawing.Size(340, 156);
-            this.dgvAntecedentes.TabIndex = 0;
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(124, 102);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(200, 21);
+            this.comboBox1.TabIndex = 47;
             // 
-            // lblAntecedentes
+            // label1
             // 
-            this.lblAntecedentes.AutoSize = true;
-            this.lblAntecedentes.Location = new System.Drawing.Point(13, 13);
-            this.lblAntecedentes.Name = "lblAntecedentes";
-            this.lblAntecedentes.Size = new System.Drawing.Size(131, 13);
-            this.lblAntecedentes.TabIndex = 1;
-            this.lblAntecedentes.Text = "Antecedentes del Cliente: ";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(32, 105);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(84, 13);
+            this.label1.TabIndex = 46;
+            this.label1.Text = "Cliente Infractor:";
             // 
-            // lblNombre
+            // txtDomicilio
             // 
-            this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(151, 13);
-            this.lblNombre.Name = "lblNombre";
-            this.lblNombre.Size = new System.Drawing.Size(16, 13);
-            this.lblNombre.TabIndex = 2;
-            this.lblNombre.Text = "...";
+            this.txtDomicilio.Location = new System.Drawing.Point(124, 65);
+            this.txtDomicilio.Name = "txtDomicilio";
+            this.txtDomicilio.Size = new System.Drawing.Size(200, 20);
+            this.txtDomicilio.TabIndex = 45;
             // 
-            // lblApellido
+            // txtTelefono
             // 
-            this.lblApellido.AutoSize = true;
-            this.lblApellido.Location = new System.Drawing.Point(151, 33);
-            this.lblApellido.Name = "lblApellido";
-            this.lblApellido.Size = new System.Drawing.Size(16, 13);
-            this.lblApellido.TabIndex = 3;
-            this.lblApellido.Text = "...";
+            this.txtTelefono.Location = new System.Drawing.Point(124, 28);
+            this.txtTelefono.Name = "txtTelefono";
+            this.txtTelefono.Size = new System.Drawing.Size(200, 20);
+            this.txtTelefono.TabIndex = 44;
             // 
-            // lblDNI
+            // lblDomicilio
             // 
-            this.lblDNI.AutoSize = true;
-            this.lblDNI.Location = new System.Drawing.Point(151, 53);
-            this.lblDNI.Name = "lblDNI";
-            this.lblDNI.Size = new System.Drawing.Size(16, 13);
-            this.lblDNI.TabIndex = 4;
-            this.lblDNI.Text = "...";
+            this.lblDomicilio.AutoSize = true;
+            this.lblDomicilio.Location = new System.Drawing.Point(32, 68);
+            this.lblDomicilio.Name = "lblDomicilio";
+            this.lblDomicilio.Size = new System.Drawing.Size(66, 13);
+            this.lblDomicilio.TabIndex = 43;
+            this.lblDomicilio.Text = "Descripcion:";
+            // 
+            // lblTelefono
+            // 
+            this.lblTelefono.AutoSize = true;
+            this.lblTelefono.Location = new System.Drawing.Point(32, 31);
+            this.lblTelefono.Name = "lblTelefono";
+            this.lblTelefono.Size = new System.Drawing.Size(36, 13);
+            this.lblTelefono.TabIndex = 42;
+            this.lblTelefono.Text = "Titulo:";
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.button1.Location = new System.Drawing.Point(0, 144);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(357, 41);
+            this.button1.TabIndex = 48;
+            this.button1.Text = "Añadir Antecedente";
+            this.button1.UseVisualStyleBackColor = true;
             // 
             // AntecedentesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(364, 244);
-            this.Controls.Add(this.lblDNI);
-            this.Controls.Add(this.lblApellido);
-            this.Controls.Add(this.lblNombre);
-            this.Controls.Add(this.lblAntecedentes);
-            this.Controls.Add(this.dgvAntecedentes);
+            this.ClientSize = new System.Drawing.Size(357, 185);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtDomicilio);
+            this.Controls.Add(this.txtTelefono);
+            this.Controls.Add(this.lblDomicilio);
+            this.Controls.Add(this.lblTelefono);
             this.Name = "AntecedentesForm";
-            this.Text = "Antecedentes Del Cliente";
-            this.Load += new System.EventHandler(this.AntecedentesForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvAntecedentes)).EndInit();
+            this.Text = "Añadir Antecedente";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -105,11 +118,12 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvAntecedentes;
-        private System.Windows.Forms.Label lblAntecedentes;
-        private System.Windows.Forms.Label lblNombre;
-        private System.Windows.Forms.Label lblApellido;
-        private System.Windows.Forms.Label lblDNI;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtDomicilio;
+        private System.Windows.Forms.TextBox txtTelefono;
+        private System.Windows.Forms.Label lblDomicilio;
+        private System.Windows.Forms.Label lblTelefono;
+        private System.Windows.Forms.Button button1;
     }
 }
-

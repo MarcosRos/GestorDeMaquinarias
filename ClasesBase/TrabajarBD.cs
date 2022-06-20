@@ -179,6 +179,64 @@ namespace ClasesBase
 
             return dt;
         }
+
+        public static DataTable obtenerPrecioAlquiler(int id)
+        {
+            SqlConnection cnn = new SqlConnection(ClasesBase.Properties.Settings.Default.GestionMaquinariasBDConnectionString);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT PrecioAlquiler FROM vw_ListarMaquinarias WHERE IdMaquinaria=@ID";
+
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+            cmd.Parameters.AddWithValue("@ID", id);
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+        }
+
+        public static void insert_Alquiler(Alquiler unAlquiler)
+        {
+            SqlConnection cnn = new SqlConnection(ClasesBase.Properties.Settings.Default.GestionMaquinariasBDConnectionString);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "INSERT INTO TablaAlquileres(id_Cliente, id_Maquinaria, alq_FechaInicio, alq_FechaFin, alq_PrecioTotal, alq_Estado) values(@IdCliente,@IdMaquinaria,@FechaInicio,@FechaFin,@Precio,@Estado)";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+
+            cmd.Parameters.AddWithValue("@IdCliente", unAlquiler.idCliente);
+            cmd.Parameters.AddWithValue("@IdMaquinaria", unAlquiler.idMaquinaria);
+            cmd.Parameters.AddWithValue("@FechaInicio", unAlquiler.FechaInicio);
+            cmd.Parameters.AddWithValue("@FechaFin", unAlquiler.FechaEntrega);
+            cmd.Parameters.AddWithValue("@Precio", unAlquiler.PrecioAlquiler);
+            cmd.Parameters.AddWithValue("@Estado", "Sin Pagar");
+
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
+
+
+        public static DataTable list_alquileres()
+        {
+            SqlConnection cnn = new SqlConnection(ClasesBase.Properties.Settings.Default.GestionMaquinariasBDConnectionString);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "SELECT * FROM vw_ListarAlquileres";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            return dt;
+        }
     }
 
 }
