@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace Vistas
 {
-    public partial class AntecedentesForm : Form
+    public partial class ClienteModificar : Form
     {
-        public AntecedentesForm()
+        public ClienteModificar()
         {
             InitializeComponent();
         }

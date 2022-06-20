@@ -5,8 +5,11 @@ using System.Text;
 
 namespace ClasesBase
 {
-    class Alquiler
+    public class Alquiler
     {
-
+        public int idCliente;
+        public int idMaquinaria;
+        public DateTime FechaInicio, FechaEntrega;
+        public decimal PrecioAlquiler;
     }
 }
