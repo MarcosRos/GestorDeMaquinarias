@@ -237,6 +237,24 @@ namespace ClasesBase
 
             return dt;
         }
+
+
+        public static void modificar_estado_Maquinaria(int idMaquinaria)
+        {
+            SqlConnection cnn = new SqlConnection(ClasesBase.Properties.Settings.Default.GestionMaquinariasBDConnectionString);
+
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "UPDATE TablaMaquinarias SET maq_Estado = @estado WHERE id_Maquinaria = @Id";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = cnn;
+
+            cmd.Parameters.AddWithValue("@estado", "Alquilada");
+            cmd.Parameters.AddWithValue("@Id", idMaquinaria);
+
+            cnn.Open();
+            cmd.ExecuteNonQuery();
+            cnn.Close();
+        }
     }
 
 }

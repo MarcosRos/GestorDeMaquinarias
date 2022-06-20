@@ -76,27 +76,33 @@ namespace Vistas
             cmbMaquinariasReserva.DataSource = dtMaquinarias;
             dtMaquinarias.Columns.Add("MarcaModelo",
             typeof(string), "Marca + ' ' + Modelo");
-
-            cmbMaquinariasReserva.DisplayMember = "MarcaModelo";
-            cmbMaquinariasReserva.ValueMember = "IdMaquinaria";
-            int j = (int)cmbMaquinariasReserva.SelectedValue;
-
-            //int j = (int)cmbMaquinarias.SelectedValue;
-            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
-            decimal precio = (from DataRow dr in dtPrecio.Rows
-                      where (int)dr["IdMaquinaria"] == j
-                      select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
-            lblPrecioReservaResultado.Text = precio + "$ por/día.";
-
-            foreach (DataRow row in dtMaquinarias.Rows) 
+            if (dtMaquinarias.Rows.Count != 0)
             {
-                if (row["IdMaquinaria"].ToString() == j.ToString()) 
+                cmbMaquinariasReserva.Enabled = true;
+                cmbMaquinariasReserva.DisplayMember = "MarcaModelo";
+                cmbMaquinariasReserva.ValueMember = "IdMaquinaria";
+                int j = (int)cmbMaquinariasReserva.SelectedValue;
+
+                //int j = (int)cmbMaquinarias.SelectedValue;
+                DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+                decimal precio = (from DataRow dr in dtPrecio.Rows
+                                  where (int)dr["IdMaquinaria"] == j
+                                  select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+                lblPrecioReservaResultado.Text = precio + "$ por/día.";
+
+                foreach (DataRow row in dtMaquinarias.Rows)
                 {
-                    //imagen=(Image)row["Imagen"];
-                    //pbMaquinaria.Image = imagen;
+                    if (row["IdMaquinaria"].ToString() == j.ToString())
+                    {
+                        //imagen=(Image)row["Imagen"];
+                        //pbMaquinaria.Image = imagen;
+                    }
                 }
             }
-
+            else
+            {
+                cmbMaquinarias.Enabled = false;
+            }
         }
 
 
@@ -107,17 +113,27 @@ namespace Vistas
             dtMaquinarias.Columns.Add("MarcaModelo",
             typeof(string), "Marca + ' ' + Modelo");
 
-            cmbMaquinarias.DisplayMember = "MarcaModelo";
-            cmbMaquinarias.ValueMember = "IdMaquinaria";
-            int j = (int)cmbMaquinarias.SelectedValue;
+            if (dtMaquinarias.Rows.Count != 0)
+            {
+                cmbMaquinarias.Enabled = true;
+                lblMaquinariaDisponible.Text = "";
+                cmbMaquinarias.DisplayMember = "MarcaModelo";
+                cmbMaquinarias.ValueMember = "IdMaquinaria";
+                int j = (int)cmbMaquinarias.SelectedValue;
 
-            //int j = (int)cmbMaquinarias.SelectedValue;
-            DataTable dtPrecio = TrabajarBD.buscarMaq(j);
-            decimal precio = (from DataRow dr in dtPrecio.Rows
-                      where (int)dr["IdMaquinaria"] == j
-                      select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
-            lblPrecioAlquilerResultado.Text = precio + "$ por/día.";
-            
+                //int j = (int)cmbMaquinarias.SelectedValue;
+                DataTable dtPrecio = TrabajarBD.buscarMaq(j);
+                decimal precio = (from DataRow dr in dtPrecio.Rows
+                                  where (int)dr["IdMaquinaria"] == j
+                                  select (decimal)dr["PrecioAlquiler"]).FirstOrDefault();
+                lblPrecioAlquilerResultado.Text = precio + "$ por/día.";
+            }
+            else
+            {
+                cmbMaquinarias.Enabled = false;
+                lblMaquinariaDisponible.Text = "No hay maquinarias disponibles en el momento";
+                lblMaquinariaDisponible.ForeColor = System.Drawing.Color.Red;
+            }
             }
 
         private void Principal_Load(object sender, EventArgs e)
@@ -208,6 +224,7 @@ namespace Vistas
                 unAlquiler.PrecioAlquiler = precio;
 
                 TrabajarBD.insert_Alquiler(unAlquiler);
+                TrabajarBD.modificar_estado_Maquinaria(maquinariaID);
 
                 dtpFinAlquiler.Value = DateTime.Today.AddDays(1);
                 load_cmbClientes();
