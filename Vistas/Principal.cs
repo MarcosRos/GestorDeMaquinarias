@@ -25,23 +25,38 @@ namespace Vistas
             cmbClientes.DataSource = dt;
             dt.Columns.Add("FullName",
             typeof(string), "Nombre + ' ' + Apellido + ' '+ DNI");
-            cmbClientes.DisplayMember = "FullName";
-            cmbClientes.ValueMember = "IdCliente";
-            int i = (int)cmbClientes.SelectedValue;
-            int antecedentes = TrabajarBD.count_of_Antecedentes(i);
-            if (antecedentes == 0)
+            if (dt.Rows.Count != 0)
             {
-                lblAntecedentes.ForeColor = System.Drawing.Color.Green;
+                btnRegistrarAlquiler.Enabled = true;
+                cmbClientes.Enabled = true;
+                lblClientesSinResult.Text = "";
+                cmbClientes.DisplayMember = "FullName";
+                cmbClientes.ValueMember = "IdCliente";
+                int i = (int)cmbClientes.SelectedValue;
+                int antecedentes = TrabajarBD.count_of_Antecedentes(i);
+                if (antecedentes == 0)
+                {
+                    lblAntecedentes.ForeColor = System.Drawing.Color.Green;
+                }
+                else if (antecedentes == 1)
+                {
+                    lblAntecedentes.ForeColor = System.Drawing.Color.Orange;
+                }
+                else
+                {
+                    lblAntecedentes.ForeColor = System.Drawing.Color.Red;
+                }
+                lblAntecedentes.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
             }
-            else if (antecedentes == 1)
-            {
-                lblAntecedentes.ForeColor = System.Drawing.Color.Orange;
+            else { 
+                btnRegistrarAlquiler.Enabled=false;
+                cmbClientes.Enabled = false;
+                lblClientesSinResult.Text = "No hay ningun cliente registrado";
+                lblClientesSinResult.ForeColor = System.Drawing.Color.Red;
+
+
+                MessageBox.Show("No Hay clientes, primero cargue alguno", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-            {
-                lblAntecedentes.ForeColor = System.Drawing.Color.Red;
-            }
-            lblAntecedentes.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
         }
 
 
@@ -51,23 +66,39 @@ namespace Vistas
             cmbClienteReserva.DataSource = dt;
             dt.Columns.Add("FullName",
             typeof(string), "Nombre + ' ' + Apellido + ' '+ DNI");
-            cmbClienteReserva.DisplayMember = "FullName";
-            cmbClienteReserva.ValueMember = "IdCliente";
-            int i = (int)cmbClienteReserva.SelectedValue;
-            int antecedentes = TrabajarBD.count_of_Antecedentes(i);
-            if (antecedentes == 0)
+
+            if (dt.Rows.Count != 0)
             {
-                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Green;
+                btnRegistrarAlquiler.Enabled = true;
+                cmbClienteReserva.Enabled = true;
+                lblClientesSinResult.Text = "";
+                cmbClienteReserva.DisplayMember = "FullName";
+                cmbClienteReserva.ValueMember = "IdCliente";
+                int i = (int)cmbClienteReserva.SelectedValue;
+                int antecedentes = TrabajarBD.count_of_Antecedentes(i);
+                if (antecedentes == 0)
+                {
+                    lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Green;
+                }
+                else if (antecedentes == 1)
+                {
+                    lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Orange;
+                }
+                else
+                {
+                    lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Red;
+                }
+                lblAntecedentesReservaResultado.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
             }
-            else if (antecedentes == 1)
-            {
-                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Orange;
+            else {
+                btnRegistrarReserva.Enabled = false;
+                cmbClienteReserva.Enabled = false;
+                lblClientesSinResult.Text = "No hay ningun cliente registrado";
+                lblClientesSinResult.ForeColor = System.Drawing.Color.Red;
+
+
+                //MessageBox.Show("No Hay clientes, primero cargue alguno", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-            {
-                lblAntecedentesReservaResultado.ForeColor = System.Drawing.Color.Red;
-            }
-            lblAntecedentesReservaResultado.Text = "Este cliente tiene: " + TrabajarBD.count_of_Antecedentes(i).ToString() + " antecedente/s.";
         }
 
         private void load_cmbMaquinariaReserva()
@@ -101,7 +132,7 @@ namespace Vistas
             }
             else
             {
-                cmbMaquinarias.Enabled = false;
+                cmbMaquinariasReserva.Enabled = false;
             }
         }
 
@@ -133,6 +164,7 @@ namespace Vistas
                 cmbMaquinarias.Enabled = false;
                 lblMaquinariaDisponible.Text = "No hay maquinarias disponibles en el momento";
                 lblMaquinariaDisponible.ForeColor = System.Drawing.Color.Red;
+                btnRegistrarAlquiler.Enabled = false;
             }
             }
 

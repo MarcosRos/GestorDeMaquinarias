@@ -104,6 +104,7 @@
             this.verInformeDeAlquilerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generarInformeDeAlquileresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lblMaquinariaDisponible = new System.Windows.Forms.Label();
+            this.lblClientesSinResult = new System.Windows.Forms.Label();
             this.tabGeneral.SuspendLayout();
             this.tpAlquiler.SuspendLayout();
             this.tpReserva.SuspendLayout();
@@ -122,6 +123,7 @@
             // 
             // tpAlquiler
             // 
+            this.tpAlquiler.Controls.Add(this.lblClientesSinResult);
             this.tpAlquiler.Controls.Add(this.lblMaquinariaDisponible);
             this.tpAlquiler.Controls.Add(this.lblPrecioFinalAlquiler);
             this.tpAlquiler.Controls.Add(this.label5);
@@ -790,6 +792,14 @@
             this.lblMaquinariaDisponible.Size = new System.Drawing.Size(0, 13);
             this.lblMaquinariaDisponible.TabIndex = 36;
             // 
+            // lblClientesSinResult
+            // 
+            this.lblClientesSinResult.AutoSize = true;
+            this.lblClientesSinResult.Location = new System.Drawing.Point(205, 64);
+            this.lblClientesSinResult.Name = "lblClientesSinResult";
+            this.lblClientesSinResult.Size = new System.Drawing.Size(0, 13);
+            this.lblClientesSinResult.TabIndex = 37;
+            // 
             // Principal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -891,5 +901,6 @@
         private System.Windows.Forms.Label lblPrecioFinalReserva;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblMaquinariaDisponible;
+        private System.Windows.Forms.Label lblClientesSinResult;
     }
 }
